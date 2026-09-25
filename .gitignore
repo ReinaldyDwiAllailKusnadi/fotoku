@@ -29,3 +29,4 @@ Thumbs.db
 # Katalog & foto asli: data konten, tetap lokal (bukan kode)
 /storage/app/private/foto.json
 /storage/app/private/foto-asli/
+database/
