@@ -1,0 +1,81 @@
+/*
+ * Fotoku — tema gelap fotografi (Tailwind 4, CSS-first).
+ *
+ * KENAPA TEMA GELAP: yang dijual situs portofolio fotografer adalah
+ * FOTONYA. Latar gelap membuat foto lebih kontras dan warnanya lebih
+ * kaya — semua galeri profesional (Lightroom, 500px) bekerja begitu.
+ *
+ * KENAPA AMBER SEBAGAI AKSEN: warna cahaya (matahari/lampu studio)
+ * cocok dengan tema fotografi, terbaca di atas latar gelap, dan bukan
+ * biru default ribuan template.
+ *
+ * KENAPA TAILWIND 4 CSS-FIRST: scaffold Laravel 13 membawa Tailwind 4
+ * yang dikonfigurasi lewat CSS (@theme), bukan tailwind.config.js —
+ * mengikuti arah alat, bukan kebiasaan lama.
+ */
+@import 'tailwindcss';
+
+@source '../../resources/views/**/*.blade.php';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    /* Latar "malam": hitam hangat, bukan hitam murni (#000 terlalu kosong) */
+    --color-malam-950: #0c0a09;
+    --color-malam-900: #171412;
+    --color-malam-800: #221e1b;
+    --color-malam-700: #332d28;
+
+    /* Aksen "emas": amber hangat */
+    --color-emas-400: #fbbf24;
+    --color-emas-500: #f59e0b;
+    --color-emas-600: #d97706;
+
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Dasar halaman: teks hangat di atas hitam hangat */
+body {
+    @apply bg-malam-950 text-stone-300 antialiased;
+}
+
+::selection {
+    @apply bg-emas-500 text-malam-950;
+}
+
+/* Kartu foto: sedikit terang dari latar agar batas foto terbaca */
+.kartu-foto {
+    @apply block bg-malam-900 border border-malam-800 rounded-xl overflow-hidden;
+}
+
+/* Hover kartu: gambar membesar sangat pelan — hidup, tapi tidak norak */
+.kartu-foto img {
+    @apply block w-full h-auto;
+    transition: transform 0.5s ease;
+}
+.kartu-foto:hover img {
+    transform: scale(1.03);
+}
+
+/* Caption di bawah foto */
+.keterangan-foto {
+    @apply flex items-baseline justify-between gap-3 px-4 py-3 text-sm;
+}
+
+/* Label album di beranda */
+.label-album {
+    @apply text-xs font-semibold tracking-widest uppercase text-emas-500;
+}
+
+/* Halaman detail: foto sebesar mungkin, metadata menyusul */
+.bingkai-detail img {
+    @apply w-full h-auto max-h-[78vh] object-contain bg-black;
+}
+
+.tabel-exif dt {
+    @apply text-stone-500;
+}
+.tabel-exif dd {
+    @apply text-stone-200 font-medium;
+}
